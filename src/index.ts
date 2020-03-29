@@ -43,6 +43,7 @@ function stateTotal(div: Element, state_stats: Array<StateStats>) {
         },
         bar: {groupWidth: "85%"},
         lineWidth: 4,
+        colors: ['#3366CC', '#22AA99']
     };
 
     const chart = new google.visualization.ComboChart(div);
@@ -60,22 +61,23 @@ function stateTotal(div: Element, state_stats: Array<StateStats>) {
     chart.draw(view, options);
 }
 
-function countyTrend(div: Element, county_stats: Array<CountyStats>) {
-    const data = new google.visualization.DataTable();
-    data.addColumn('date', 'Date');
-
-
+function countiesByWeight(county_stats: Array<CountyStats>): Array<string> {
     const countyWeight = county_stats.reduce((weights, row) => {
         weights[row.county] = (weights[row.county] || 0) + row.positive;
         return weights;
     }, <{ [key: string]: number }>{});
 
-    const counties = Object.entries(countyWeight)
+    return Object.entries(countyWeight)
         .map(([county, weight]) => [county, weight])
         .sort((a, b) => <number>b[1] - <number>a[1])
         .map((rows) => <string>rows[0]);
+}
 
+function countyTrend(div: Element, county_stats: Array<CountyStats>) {
+    const data = new google.visualization.DataTable();
+    data.addColumn('date', 'Date');
 
+    const counties = countiesByWeight(county_stats);
     counties.forEach((county) => {
         data.addColumn('number', county);
     });
