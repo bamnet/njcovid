@@ -80,7 +80,6 @@ function countyTrend(div: Element, county_stats: Array<CountyStats>) {
         data.addColumn('number', county);
     });
 
-
     const daily = county_stats.reduce((result, row) => {
         const d = row.date.valueOf().toString();
         (result[d] = result[d] || {})[row.county] = row.positive;
@@ -100,15 +99,18 @@ function countyTrend(div: Element, county_stats: Array<CountyStats>) {
         data.addRow(row);
     });
 
+    const dates = data.getDistinctValues(0);
+
     const options: google.visualization.LineChartOptions = {
         vAxis: { title: 'Positive Cases' },
         hAxis: {
             viewWindowMode: 'explicit',
             viewWindow: {
-                min: new Date(2020, 2, 20),
-                max: new Date(2020, 2, 28),
+                min: dates[dates.length - 7],
+                max: dates[dates.length - 1],
             },
             format: 'MMM d',
+            ticks: dates.slice(dates.length - 7, dates.length),
         },
         pointSize: 7,
         chartArea: {
