@@ -41,11 +41,23 @@ function stateTotal(div: Element, state_stats: Array<StateStats>) {
             bottom: 20,
             height: "100%",
         },
+        bar: {groupWidth: "85%"},
+        lineWidth: 4,
     };
 
     const chart = new google.visualization.ComboChart(div);
 
-    chart.draw(data, options);
+    const view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+        {
+            calc: "stringify",
+            sourceColumn: 1,
+            type: "string",
+            role: "annotation"
+        },
+        2]);
+
+    chart.draw(view, options);
 }
 
 function countyTrend(div: Element, county_stats: Array<CountyStats>) {
