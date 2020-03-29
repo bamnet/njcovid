@@ -2,6 +2,11 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
+#summary {
+  padding: 10px;
+  font-size: 1.75em;
+}
+
 .row {
   display: flex;
   justify-content: center;

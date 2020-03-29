@@ -1,5 +1,7 @@
 import './styles.css';
 
+import * as moment from 'moment';
+
 import { loadData, StateStats, CountyStats } from './data_loader';
 
 google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
@@ -8,8 +10,43 @@ google.charts.setOnLoadCallback(drawCharts);
 async function drawCharts() {
     const data = await loadData();
 
+    summaryText(<HTMLElement>document.getElementById('summary'), data.state_stats);
     stateTotal(<Element>document.getElementById('state_total'), data.state_stats);
     countyTrend(<Element>document.getElementById('county_trend'), data.county_stats);
+}
+
+function comma(num: number): string {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+function commaSign(num: number): string {
+    let str = num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    if (num >= 0) {
+        str = '+' + str;
+    }
+    return str;
+}
+
+function pctChange(oldVal: number, newVal: number): string {
+    const pct = Math.round(100 * (newVal - oldVal) / oldVal);
+    return commaSign(pct);
+}
+
+function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
+    state_stats.sort((a, b) => a.date.valueOf() - b.date.valueOf());
+
+    const recent = state_stats[state_stats.length - 1];
+    const prev = state_stats[state_stats.length - 2];
+
+    div.children.namedItem('summary_positive')!.innerHTML = `
+        Positive Cases: ${comma(recent.positive)}
+        (${commaSign(recent.positive - prev.positive)}
+        / ${pctChange(prev.positive, recent.positive)}%)`;
+
+    const d = moment(recent.date);
+    div.children.namedItem('summary_date')!.innerHTML = `as of ${d.format('MMM D')}`;
+
+    div.children.namedItem('loading')!.remove();
 }
 
 function stateTotal(div: Element, state_stats: Array<StateStats>) {
@@ -41,7 +78,7 @@ function stateTotal(div: Element, state_stats: Array<StateStats>) {
             bottom: 20,
             height: "100%",
         },
-        bar: {groupWidth: "85%"},
+        bar: { groupWidth: "85%" },
         lineWidth: 4,
         colors: ['#3366CC', '#22AA99']
     };
