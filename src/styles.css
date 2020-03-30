@@ -42,3 +42,25 @@ html, body {
   background-color: rgb(66, 133, 244);
   color: white;
 }
+
+.tbl table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.tbl thead {
+  color: white;
+  background-color: rgb(66, 133, 244);
+}
+
+.tbl table, .tbl th, .tbl td {
+  border: 1px solid black;
+}
+
+.tbl td, .tbl th {
+  padding: 5px;
+}
+
+.tbl tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

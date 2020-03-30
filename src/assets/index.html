@@ -26,6 +26,31 @@
             <h1>Cases Per County - Last 7 Days</h1>
             <div id="county_trend" class="chart"></div>
         </div>
+        <div class="widget">
+            <h1>County Summary</h1>
+            <div class="tbl">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>County</th>
+                            <th>Cases</th>
+                            <th>Daily Change</th>
+                            <th>% Change</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl_bdy">
+                        <template id="row_tmpl">
+                            <tr>
+                                <td>{{county}}</td>
+                                <td>{{positive}}</td>
+                                <td>{{daily_change}}</td>
+                                <td>{{pct_change}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <footer>
         <p>

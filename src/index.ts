@@ -13,6 +13,7 @@ async function drawCharts() {
     summaryText(<HTMLElement>document.getElementById('summary'), data.state_stats);
     stateTotal(<Element>document.getElementById('state_total'), data.state_stats);
     countyTrend(<Element>document.getElementById('county_trend'), data.county_stats);
+    countyTable(document.getElementById('tbl_bdy')!, data.county_stats);
 }
 
 function comma(num: number): string {
@@ -108,6 +109,31 @@ function countiesByWeight(county_stats: Array<CountyStats>): Array<string> {
         .map(([county, weight]) => [county, weight])
         .sort((a, b) => <number>b[1] - <number>a[1])
         .map((rows) => <string>rows[0]);
+}
+
+function countyTable(body: HTMLElement, county_stats: Array<CountyStats>) {
+    const summary = county_stats.reduce((county_results, row) => {
+        (county_results[row.county] = county_results[row.county] || []).push(row);
+        return county_results;
+    }, <{[key: string]: Array<CountyStats>}>{});
+
+    const template = <HTMLTemplateElement>document.getElementById('row_tmpl');
+    const counties = countiesByWeight(county_stats);
+    counties.forEach((county) => {
+        const tr = <HTMLElement>template.content.cloneNode(true);
+        const td = tr.querySelectorAll("td");
+
+        td[0].textContent = county;
+
+        // Sort the days so the most recent day is 0, prev is 1, etc.
+        const days = summary[county].sort((a, b) => b.date.valueOf() - a.date.valueOf());
+
+        td[1].textContent = comma(days[0].positive);
+        td[2].textContent = commaSign(days[0].positive - days[1].positive);
+        td[3].textContent = pctChange(days[1].positive, days[0].positive) + '%';
+        
+        body.appendChild(tr);
+    });
 }
 
 function countyTrend(div: Element, county_stats: Array<CountyStats>) {
