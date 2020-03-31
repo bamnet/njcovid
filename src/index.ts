@@ -81,7 +81,7 @@ function stateTotal(div: Element, state_stats: Array<StateStats>) {
         },
         bar: { groupWidth: "85%" },
         lineWidth: 4,
-        colors: ['#3366CC', '#22AA99']
+        colors: ['#3366CC', '#0099C6']
     };
 
     const chart = new google.visualization.ComboChart(div);
