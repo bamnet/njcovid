@@ -50,7 +50,13 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: 'index2.html',
       template: 'src/assets/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/assets/index_old.html',
+      chunks: [],
     }),
     new MomentLocalesPlugin(),
   ]
