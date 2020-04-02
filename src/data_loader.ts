@@ -2,11 +2,13 @@ export interface CountyStats {
     date: Date;
     county: string;
     positive: number;
+    deaths?: number;
 }
 
 export interface StateStats {
     date: Date;
     positive: number;
+    deaths: number;
 }
 
 export interface Data {
@@ -18,6 +20,7 @@ interface JSONCountyStats {
     date: string;
     county: string;
     presumptive_positive: number;
+    deaths: number | null;
 }
 
 interface JSONData {
@@ -41,20 +44,26 @@ export async function loadData() {
                 date: date(row.date),
                 county: row.county,
                 positive: row.presumptive_positive,
+                deaths: row.deaths,
             };
         });
 
         // Summarize counties into the state.
-        // TODO(bamnet): Push this over to the server.
+        // TODO(bamnet): Push this over to a server.
         const dailySummary = jsonData.county_stats.reduce((rv, x) => {
-            rv[x.date] = (rv[x.date] || 0) + x.presumptive_positive;
+            rv[x.date] = rv[x.date] || { deaths: 0, positive: 0 };
+            rv[x.date].positive = (rv[x.date].positive || 0) + x.presumptive_positive;
+            if (x.deaths) {
+                rv[x.date].deaths = (rv[x.date].deaths || 0) + x.deaths;
+            }
             return rv;
-        }, <{ [key: string]: number }>{});
+        }, <{ [key: string]: { deaths: number, positive: number } }>{});
 
         const stateStats = Object.entries(dailySummary).map(([key, value]) => {
             return {
                 date: date(key),
-                positive: value
+                positive: value.positive,
+                deaths: value.deaths,
             };
         });
 
