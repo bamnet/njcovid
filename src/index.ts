@@ -45,7 +45,11 @@ function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
     div.children.namedItem('summary_positive')!.innerHTML = `
         Positive Cases: ${comma(recent.positive)}
         (${commaSign(recent.positive - prev.positive)}
-        / ${pctChange(prev.positive, recent.positive)})`;
+        / ${pctChange(prev.positive, recent.positive)}),
+        Confirmed Deaths: ${comma(recent.deaths)}
+        (${commaSign(recent.deaths - prev.deaths)}
+        / ${pctChange(prev.deaths, recent.deaths)})
+        `;
 
     const d = moment(recent.date);
     div.children.namedItem('summary_date')!.innerHTML = `as of ${d.format('MMM D')}`;
