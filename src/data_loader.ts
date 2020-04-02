@@ -73,3 +73,15 @@ export async function loadData() {
         }
     })
 }
+
+export function countiesByWeight(county_stats: Array<CountyStats>): Array<string> {
+    const countyWeight = county_stats.reduce((weights, row) => {
+        weights[row.county] = (weights[row.county] || 0) + row.positive;
+        return weights;
+    }, <{ [key: string]: number }>{});
+
+    return Object.entries(countyWeight)
+        .map(([county, weight]) => [county, weight])
+        .sort((a, b) => <number>b[1] - <number>a[1])
+        .map((rows) => <string>rows[0]);
+}
