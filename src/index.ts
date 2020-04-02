@@ -30,7 +30,10 @@ function commaSign(num: number): string {
 
 function pctChange(oldVal: number, newVal: number): string {
     const pct = Math.round(100 * (newVal - oldVal) / oldVal);
-    return commaSign(pct);
+    if (isNaN(pct)) {
+        return '-';
+    }
+    return commaSign(pct) + '%';
 }
 
 function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
@@ -42,7 +45,7 @@ function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
     div.children.namedItem('summary_positive')!.innerHTML = `
         Positive Cases: ${comma(recent.positive)}
         (${commaSign(recent.positive - prev.positive)}
-        / ${pctChange(prev.positive, recent.positive)}%)`;
+        / ${pctChange(prev.positive, recent.positive)})`;
 
     const d = moment(recent.date);
     div.children.namedItem('summary_date')!.innerHTML = `as of ${d.format('MMM D')}`;
@@ -130,7 +133,11 @@ function countyTable(body: HTMLElement, county_stats: Array<CountyStats>) {
 
         td[1].textContent = comma(days[0].positive);
         td[2].textContent = commaSign(days[0].positive - days[1].positive);
-        td[3].textContent = pctChange(days[1].positive, days[0].positive) + '%';
+        td[3].textContent = pctChange(days[1].positive, days[0].positive);
+
+        td[4].textContent = comma(days[0].deaths);
+        td[5].textContent = commaSign(days[0].deaths - days[1].deaths);
+        td[6].textContent = pctChange(days[1].deaths, days[0].deaths);
         
         body.appendChild(tr);
     });

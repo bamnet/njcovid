@@ -61,6 +61,14 @@ html, body {
   padding: 5px;
 }
 
-.tbl tr:nth-child(even) {
+.tbl tbody tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.tbl tbody td {
+  text-align: right;
+}
+
+.tbl tbody td:first-child {
+  text-align: left;
 }

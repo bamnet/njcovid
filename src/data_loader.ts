@@ -2,7 +2,7 @@ export interface CountyStats {
     date: Date;
     county: string;
     positive: number;
-    deaths?: number;
+    deaths: number;
 }
 
 export interface StateStats {
@@ -40,11 +40,11 @@ export async function loadData() {
     }).then((jsonData) => {
         // Convert the JSON into County Stats.
         const county_stats = jsonData.county_stats.map((row) => {
-            return {
+            return <CountyStats>{
                 date: date(row.date),
                 county: row.county,
                 positive: row.presumptive_positive,
-                deaths: row.deaths,
+                deaths: row.deaths || 0,
             };
         });
 
