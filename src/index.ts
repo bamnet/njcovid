@@ -11,8 +11,8 @@ import { CountyTable } from './charts/county_table';
 google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
 google.charts.setOnLoadCallback(drawCharts);
 
-async function drawCharts() {
-    const data = await loadData();
+function drawCharts() {
+    const data = loadData();
 
     summaryText(<HTMLElement>document.getElementById('summary'), data.state_stats);
 
