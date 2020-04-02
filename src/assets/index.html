@@ -6,13 +6,25 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-271041-18"></script>
+    <script>
+        if (window.location.hostname === 'localhost') {
+            window['ga-disable-UA-271041-18'] = true;
+        }
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-271041-18');
+    </script>
 </head>
 
 <body>
     <h1>New Jersey COVID19 Stats</h1>
     <div id="summary">
         <span id="loading">Loading...</span>
-        <span id="summary_positive"></span> 
+        <span id="summary_positive"></span>
         <span id="summary_date"></span>
     </div>
     <div class="row">
