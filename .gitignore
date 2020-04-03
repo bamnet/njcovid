@@ -2,6 +2,7 @@
 .cache/
 coverage/
 dist/*
+!dist/CNAME
 node_modules/
 *.log
 
