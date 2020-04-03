@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const config = {
   entry: './src/index.ts',
@@ -59,6 +60,21 @@ const config = {
       chunks: [],
     }),
     new MomentLocalesPlugin(),
+    new FaviconsWebpackPlugin({
+      favicons: {
+        appName: 'njcovid.info',
+        appDescription: 'New Jersey COVID19 Stats',
+        developerName: 'bamnet',
+        developerURL: 'https://twitter.com/bamnet',
+        start_url: null,
+        icons: {
+          appleStartup: false,
+          coast: false,
+          windows: false,
+          yandex: false,
+        },
+      }
+    }),
   ]
 };
 
