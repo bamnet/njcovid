@@ -20,7 +20,7 @@ const options: google.visualization.ComboChartOptions = {
     },
     bar: { groupWidth: '85%' },
     lineWidth: 4,
-    colors: ['#3366CC', '#0099C6']
+    colors: ['#3F484D', '#90ADB3']
 };
 
 export class StateCases {

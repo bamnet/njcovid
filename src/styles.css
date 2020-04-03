@@ -39,8 +39,8 @@ html, body {
   padding: 10px;
   font-size: 1.75em;
   font-weight: bold;
-  background-color: rgb(66, 133, 244);
-  color: white;
+  background-color: #F1E5BB;
+  color: black;
 }
 
 .tbl table {
@@ -49,8 +49,8 @@ html, body {
 }
 
 .tbl thead {
-  color: white;
-  background-color: rgb(66, 133, 244);
+  color: black;
+  background-color:#E8D6CC;
 }
 
 .tbl table, .tbl th, .tbl td {
