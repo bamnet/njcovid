@@ -1,5 +1,28 @@
 html, body {
   font-family: 'Roboto', sans-serif;
+  margin: 0px;
+}
+
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  color: white;
+}
+
+#title {
+  display: inline-block;
+  padding: 14px 16px;
+  font-size: 1.5em;
+}
+
+.topnav a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1em;
+  height: 100%;
 }
 
 #summary {
@@ -71,4 +94,15 @@ html, body {
 
 .tbl tbody td:first-child {
   text-align: left;
+}
+
+footer {
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+footer a {
+  color: white;
 }
