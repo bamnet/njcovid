@@ -1,6 +1,6 @@
 # njcovid
 
-Empty project.
+Charts and visualizations of New Jersey's COVID19 data, hosted @ https://njcovid.info.
 
 ## Building and running on localhost
 
@@ -10,24 +10,21 @@ First install dependencies:
 npm install
 ```
 
+To create a live-reloading development build:
+
+```sh
+npm run start
+```
+
 To create a production build:
 
 ```sh
 npm run build-prod
 ```
 
-To create a development build:
+## Deploying to production
 
-```sh
-npm run build-dev
-```
+tl: dr; Just push to master.
 
-## Running
-
-```sh
-node dist/bundle.js
-```
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
+A Github workflow (.github/workflows/gh-pages.yaml) runs on master commits,
+building a production build and committing it to the gh-pages branch for serving via Github Pages.
