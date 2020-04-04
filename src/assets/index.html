@@ -5,6 +5,16 @@
     <title>NJ COVID19 Stats</title>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <meta property="og:title" content="New Jersey's Daily COVID10 Stats" />
+    <meta name="twitter:site" content="@njcovid">
+    <meta name="twitter:creator" content="@bamnet">
+    <% if (htmlWebpackPlugin.options.image) { %>
+    <meta name="og:image" content="<%= htmlWebpackPlugin.options.image %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <% } %>
+    <% if (htmlWebpackPlugin.options.description) { %>
+    <meta property="og:description" content="<%= htmlWebpackPlugin.options.description %>" />
+    <% } %>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-271041-18"></script>
@@ -89,7 +99,8 @@
             and <a href="https://twitter.com/GovMurphy">@GovMurphy</a>.
         </p>
         <p>
-            Built with ❤️ in NJ by <a href="https://twitter.com/bamnet">@bamnet</a>. Ideas? 👉 <a href="https://github.com/bamnet/njcovid/">Github</a>. Stay safe out there.
+            Built with ❤️ in NJ by <a href="https://twitter.com/bamnet">@bamnet</a>. Ideas? 👉 <a
+                href="https://github.com/bamnet/njcovid/">Github</a>. Stay safe out there.
         </p>
     </footer>
 </body>
