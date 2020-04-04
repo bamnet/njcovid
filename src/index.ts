@@ -26,6 +26,11 @@ function drawCharts() {
         data.county_stats,
         weightedCounties);
 
+    const metaImg = document.createElement('meta');
+    metaImg.setAttribute('name', 'og:image');
+    metaImg.content = countyCases.staticURL;
+    document.head.appendChild(metaImg);
+
     new CountyTable(
         document.getElementById('tbl_bdy')!,
         <HTMLTemplateElement>document.getElementById('row_tmpl'),

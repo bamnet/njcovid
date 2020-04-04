@@ -1,9 +1,18 @@
 import { CountyStats } from '../data_loader';
+import { ChartConfiguration } from 'chart.js';
+
+import * as moment from 'moment';
+
+// colors stores the google-charts colors so we can reuse them in the static images.
+const colors = ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e', '#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc', '#e67300', '#8b0707', '#651067', '#329262', '#5574a6', '#3b3eac', '#b77322', '#16d620', '#b91383', '#f4359e', '#9c5935', '#a9c413', '#2a778d', '#668d1c', '#bea413', '#0c5922', '#743411'];
+// daysToGraph configures how many historical days should be plotted.
+const daystoGraph = 10;
 
 export class CountyCases {
     data: google.visualization.DataTable;
     options: google.visualization.LineChartOptions;
     chart: google.visualization.ComboChart;
+    staticURL: string;
 
     constructor(div: Element, county_stats: Array<CountyStats>, counties: Array<string>) {
         this.chart = new google.visualization.LineChart(div);
@@ -40,11 +49,11 @@ export class CountyCases {
             hAxis: {
                 viewWindowMode: 'explicit',
                 viewWindow: {
-                    min: dates[dates.length - 7],
+                    min: dates[dates.length - daystoGraph],
                     max: dates[dates.length - 1],
                 },
                 format: 'MMM d',
-                ticks: dates.slice(dates.length - 7, dates.length),
+                ticks: dates.slice(dates.length - daystoGraph, dates.length),
             },
             pointSize: 7,
             chartArea: {
@@ -57,6 +66,34 @@ export class CountyCases {
         };
 
         this.render();
+
+        const uniqueDays = county_stats.reduce((set, row) => {
+            return set.add(row.date.valueOf().toString());
+        }, new Set<string>());
+
+        const days = Array.from(uniqueDays).sort().slice(-1 * daystoGraph);
+
+        const staticOptions = <ChartConfiguration>{
+            type: 'line',
+            options: {
+                legend: {
+                    position: 'right',
+                },
+            },
+            data: {
+                labels: days.map((day) => moment(new Date(parseInt(day, 10))).format('MMM D')),
+                datasets: counties.map((county, i) => {
+                    return {
+                        label: county,
+                        data: days.map((day) => (daily[day][county] || 0)),
+                        fill: false,
+                        borderColor: colors[i],
+                        pointBackgroundColor: colors[i],
+                    };
+                }),
+            },
+        };
+        this.staticURL = `https://quickchart.io/chart?w=1200&h=630&c=${encodeURIComponent(JSON.stringify(staticOptions))}`;
     }
 
     render() {
