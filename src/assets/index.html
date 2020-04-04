@@ -5,11 +5,12 @@
     <title>NJ COVID19 Stats</title>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <meta property="og:title" content="New Jersey's Daily COVID10 Stats" />
+    <meta property="og:title" content="New Jersey's Daily COVID10 Stats">
+    <meta property=”og:type” content=”website”>
     <meta name="twitter:site" content="@njcovid">
     <meta name="twitter:creator" content="@bamnet">
     <% if (htmlWebpackPlugin.options.image) { %>
-    <meta name="og:image" content="<%= htmlWebpackPlugin.options.image %>">
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.image %>">
     <meta name="twitter:card" content="summary_large_image">
     <% } %>
     <% if (htmlWebpackPlugin.options.description) { %>
