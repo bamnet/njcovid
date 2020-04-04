@@ -26,10 +26,7 @@ function drawCharts() {
         data.county_stats,
         weightedCounties);
 
-    const metaImg = document.createElement('meta');
-    metaImg.setAttribute('name', 'og:image');
-    metaImg.content = countyCases.staticURL;
-    document.head.appendChild(metaImg);
+    addMetaTags(countyCases.staticURL);
 
     new CountyTable(
         document.getElementById('tbl_bdy')!,
@@ -41,6 +38,13 @@ function drawCharts() {
         stateCases.render();
         countyCases.render();
     });
+}
+
+function addMetaTags(imageURL: string) {
+    const metaImg = document.createElement('meta');
+    metaImg.setAttribute('name', 'og:image');
+    metaImg.content = imageURL;
+    document.head.appendChild(metaImg);
 }
 
 function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
