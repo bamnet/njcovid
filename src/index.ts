@@ -7,6 +7,7 @@ import { comma, commaSign, pctChange } from './util';
 import { StateCases } from './charts/state_cases';
 import { CountyCases } from './charts/county_cases';
 import { CountyTable } from './charts/county_table';
+import { summary } from './charts/summary_text';
 
 google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
 google.charts.setOnLoadCallback(drawCharts);
@@ -39,22 +40,6 @@ function drawCharts() {
 }
 
 function summaryText(div: HTMLElement, state_stats: Array<StateStats>) {
-    state_stats.sort((a, b) => a.date.valueOf() - b.date.valueOf());
-
-    const recent = state_stats[state_stats.length - 1];
-    const prev = state_stats[state_stats.length - 2];
-
-    div.children.namedItem('summary_positive')!.innerHTML = `
-        Positive Cases: ${comma(recent.positive)}
-        (${commaSign(recent.positive - prev.positive)}
-        / ${pctChange(prev.positive, recent.positive)}),
-        Confirmed Deaths: ${comma(recent.deaths)}
-        (${commaSign(recent.deaths - prev.deaths)}
-        / ${pctChange(prev.deaths, recent.deaths)})
-        `;
-
-    const d = moment(recent.date);
-    div.children.namedItem('summary_date')!.innerHTML = `as of ${d.format('MMM D')}`;
-
+    div.children.namedItem('summary_text')!.innerHTML = summary(state_stats);
     div.children.namedItem('loading')!.remove();
 }
