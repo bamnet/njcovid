@@ -2,7 +2,6 @@ import * as path from 'path';
 import * as webpack from 'webpack';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const config: webpack.Configuration = {
@@ -62,7 +61,6 @@ const config: webpack.Configuration = {
       template: 'src/assets/index_old.html',
       chunks: [],
     }),
-    new MomentLocalesPlugin(),
     new FaviconsWebpackPlugin({
       favicons: {
         appName: 'njcovid.info',

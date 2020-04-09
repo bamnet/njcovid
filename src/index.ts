@@ -1,7 +1,5 @@
 import './styles.css';
 
-import * as moment from 'moment';
-
 import { loadData, countiesByWeight, StateStats, CountyStats } from './data_loader';
 import { comma, commaSign, pctChange } from './util';
 import { StateCases } from './charts/state_cases';

@@ -1,7 +1,7 @@
 import { CountyStats } from '../data_loader';
 import { ChartConfiguration } from 'chart.js';
 
-import * as moment from 'moment';
+import { dateFormat } from '../util';
 
 type DailyCountyCount = { [key: string]: { [key: string]: number } };
 
@@ -99,7 +99,7 @@ export function staticURL(county_stats: Array<CountyStats>, counties: Array<stri
             },
         },
         data: {
-            labels: days.map((day) => moment(new Date(parseInt(day, 10))).format('MMM D')),
+            labels: days.map((day) => dateFormat(new Date(parseInt(day, 10)))),
             datasets: counties.map((county, i) => {
                 return {
                     label: county,

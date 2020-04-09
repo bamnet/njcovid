@@ -17,3 +17,8 @@ export function pctChange(oldVal: number, newVal: number): string {
     }
     return commaSign(pct) + '%';
 }
+
+export function dateFormat(date: Date): string {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
+    return `${months[date.getMonth()]} ${date.getDate()}`;
+}
