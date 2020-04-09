@@ -1,10 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
+import * as path from 'path';
+import * as webpack from 'webpack';
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-const config = {
+const config: webpack.Configuration = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -80,4 +81,4 @@ const config = {
   ]
 };
 
-module.exports = config;
+export default config;
