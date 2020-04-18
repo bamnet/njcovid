@@ -1,7 +1,6 @@
 import './styles.css';
 
-import { loadData, countiesByWeight, StateStats, CountyStats } from './data_loader';
-import { comma, commaSign, pctChange } from './util';
+import { loadData, countiesByWeight, StateStats } from './data_loader';
 import { StateCases } from './charts/state_cases';
 import { NewCases } from './charts/new_cases';
 import { CountyCases } from './charts/county_cases';
